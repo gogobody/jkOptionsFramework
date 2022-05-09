@@ -81,7 +81,7 @@ function themeConfig($form)
             'footer_text' => '感谢您使用xxx主题',
         ]
     ];
-    CSF::setup(basename(__DIR__), $params);
+    CSF::setup('my_framework', $params);
     CSF::setTypechoOptionForm($form);
 }
 ```
