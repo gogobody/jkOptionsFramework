@@ -100,4 +100,4 @@ echo $options['opt-textarea']; // 选项的id
 
 ## Support
 
-<img style="width: 10%" src="https://s3.bmp.ovh/imgs/2022/05/09/bcb038c19de72d6f.png" alt="">
+<img style="width: 40%" src="https://s3.bmp.ovh/imgs/2022/05/09/bcb038c19de72d6f.png" alt="">
