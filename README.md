@@ -17,7 +17,7 @@
 
 上传自插件目录，并修改目录名为 jkOptionsFramework ，然后启用插件即可。
 
-更多请请查看文档 [jkOptions Framework 在线文档](https://www.yuque.com/gogobody/wycinl/btgbxb#pYY55)
+更多请请查看文档 [jkOptions Framework 在线文档](https://www.wolai.com/xvse6BfZ5vMxd9LgjYBjRM)
 
 ## Demo
 插件设置自带一个展示Demo
@@ -94,7 +94,7 @@ echo $options['opt-textarea']; // 选项的id
 ```
 
 ## Documentation
-阅读在线文档获取详细信息: [documentation](https://www.yuque.com/gogobody/wycinl/btgbxb)
+阅读在线文档获取详细信息: [documentation](https://www.wolai.com/xvse6BfZ5vMxd9LgjYBjRM)
 
 
 ## Available Option Fields
