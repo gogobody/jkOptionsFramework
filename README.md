@@ -73,6 +73,17 @@ if( class_exists( 'CSF' ) ) {
   ) );
 
 }
+function themeConfig($form)
+{
+    $params = [
+        'args'=> [
+            'framework_title' => 'xxx主题设置',
+            'footer_text' => '感谢您使用xxx主题',
+        ]
+    ];
+    CSF::setup(basename(__DIR__), $params);
+    CSF::setTypechoOptionForm($form);
+}
 ```
 如何获取一个配置的值？
 ```php
