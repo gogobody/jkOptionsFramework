@@ -100,4 +100,4 @@ echo $options['opt-textarea']; // 选项的id
 
 ## Support
 
-![扫码赞助](https://s3.bmp.ovh/imgs/2022/05/09/bcb038c19de72d6f.png)
+<img style="width: 10%" src="https://s3.bmp.ovh/imgs/2022/05/09/bcb038c19de72d6f.png" alt="">
