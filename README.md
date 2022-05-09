@@ -4,24 +4,27 @@
 一个适用于  Typecho 的主题和插件的 轻量级 简单 选项框架~
 
 ## Contents
-- [Demo](#demo)
 - [Installation](#installation)
+- [Demo](#demo)
 - [Quick Start](#quick-start)
 - [Documentation](#documentation)
-- [Free vs Premium](#free-vs-premium)
 - [Support](#support)
-- [Release Notes](#release-notes)
 - [License](#license)
 
-## Demo
-插件 Demo 制作中
 
 ## Installation
+[下载最新版本](https://github.com/gogobody/jkOptionsFramework/archive/refs/heads/main.zip)
 
-请查看文档 [jkOptions Framework 在线文档](https://www.yuque.com/gogobody/wycinl/btgbxb#pYY55)
+上传自插件目录，并修改目录名为 jkOptionsFramework ，然后启用插件即可。
+
+更多请请查看文档 [jkOptions Framework 在线文档](https://www.yuque.com/gogobody/wycinl/btgbxb#pYY55)
+
+## Demo
+插件设置自带一个展示Demo
 
 ## Quick Start
 
+首先根据上面的内容安装插件
 
 打开你的主题的 **functions.php** 然后粘贴以下代码.
 
@@ -96,3 +99,5 @@ echo $options['opt-textarea']; // 选项的id
 | Code Editor | Group       | Repeater     | Switcher | 
 
 ## Support
+
+![扫码赞助](https://s3.bmp.ovh/imgs/2022/05/09/bcb038c19de72d6f.png)
