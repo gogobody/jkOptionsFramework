@@ -91,7 +91,7 @@ if ( ! class_exists( 'CSF_Welcome' ) ) {
     public static function add_plugin_row_meta( $links, $plugin_file ) {
 
       if ( $plugin_file === 'codestar-framework/codestar-framework.php' && ! empty( $links ) ) {
-        $links['csf--docs'] = '<a href="http://codestarframework.com/documentation/" target="_blank">Documentation</a>';
+        $links['csf--docs'] = '<a href="https://www.wolai.com/xvse6BfZ5vMxd9LgjYBjRM" target="_blank">Documentation</a>';
       }
 
       return $links;

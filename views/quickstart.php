@@ -64,4 +64,4 @@ echo $options['opt-textarea']; <span>// id of field</span>
 </pre>
 </div>
 
-<p><a href="http://codestarframework.com/documentation/" class="button" target="_blank" rel="nofollow"><i class="fas fa-book"></i> Online Documentation</a></p>
+<p><a href="https://www.wolai.com/xvse6BfZ5vMxd9LgjYBjRM" class="button" target="_blank" rel="nofollow"><i class="fas fa-book"></i> Online Documentation</a></p>
