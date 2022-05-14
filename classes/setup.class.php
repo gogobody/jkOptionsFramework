@@ -83,44 +83,53 @@ if (!class_exists('CSF_Setup')) {
 
         public static function get_enqueue_style($header = null)
         {
-            if (self::$render_static_style) return $header;
-            $style = '<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/5.15.4/css/all.min.css?ver=5.15.4">' .
-                '<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/5.15.4/css/v4-shims.min.css?ver=5.15.4">' .
-                '<link rel="stylesheet" href="' . self::include_plugin_url('assets/css/style.min.css') . '">'.
-                '<link rel="stylesheet" href="' . self::include_plugin_url('assets/css/color-picker.min.css') . '">'.
-                self::add_admin_enqueue_scripts(false).
+            // 仅在插件页或者主题页添加
+            if (str_contains($_SERVER['REQUEST_URI'], 'plugin.php') or str_contains($_SERVER['REQUEST_URI'], 'theme.php')) {
+                if (self::$render_static_style) return $header;
+                $style = '<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/5.15.4/css/all.min.css?ver=5.15.4">' .
+                    '<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/5.15.4/css/v4-shims.min.css?ver=5.15.4">' .
+                    '<link rel="stylesheet" href="' . self::include_plugin_url('assets/css/style.min.css') . '">'.
+                    '<link rel="stylesheet" href="' . self::include_plugin_url('assets/css/color-picker.min.css') . '">'.
+                    self::add_admin_enqueue_scripts(false).
 
-                '<script>_wpUtilSettings={ajax:{url: "'. Common::url('/jkoptions/ajax', Helper::options()->index).'"}};window.ajaxurl=_wpUtilSettings.ajax.url;</script>';
+                    '<script>_wpUtilSettings={ajax:{url: "'. Common::url('/jkoptions/ajax', Helper::options()->index).'"}};window.ajaxurl=_wpUtilSettings.ajax.url;</script>';
 
-            self::$render_static_style = true;
-            return $header . $style;
+                self::$render_static_style = true;
+                return $header . $style;
+            }
+            return $header;
         }
 
         public static function get_enqueue_script($old = null)
         {
-            if (self::$render_static_script) return $old;
-            $script = '<script src="' . self::include_plugin_url('assets/js/lodash.min.js') . '"></script>' .
-                '<script src="' . self::include_plugin_url('assets/js/plugins.min.js') . '"></script>' .
-                '<script src="' . self::include_plugin_url('assets/js/main.min.js') . '"></script>' .
-                '<script src="' . self::include_plugin_url('assets/js/iris.min.js') . '"></script>' .
+            // 仅在插件页或者主题页添加 class
+            if (str_contains($_SERVER['REQUEST_URI'], 'plugin.php') or str_contains($_SERVER['REQUEST_URI'], 'theme.php')) {
 
-                '<script src="' . self::include_plugin_url('assets/js/color-picker.min.js') . '"></script>' .
-                '<script src="' . self::include_plugin_url('assets/js/jquery/ui/core.min.js') . '"></script>' .
-                '<script src="' . self::include_plugin_url('assets/js/jquery/ui/draggable.min.js') . '"></script>' .
+                if (self::$render_static_script) return $old;
+                $script = '<script src="' . self::include_plugin_url('assets/js/lodash.min.js') . '"></script>' .
+                    '<script src="' . self::include_plugin_url('assets/js/plugins.min.js') . '"></script>' .
+                    '<script src="' . self::include_plugin_url('assets/js/main.min.js') . '"></script>' .
+                    '<script src="' . self::include_plugin_url('assets/js/iris.min.js') . '"></script>' .
 
-                '<script src="' . self::include_plugin_url('assets/js/jquery/ui/mouse.min.js') . '"></script>' .
-                '<script src="' . self::include_plugin_url('assets/js/jquery/ui/menu.min.js') . '"></script>' .
+                    '<script src="' . self::include_plugin_url('assets/js/color-picker.min.js') . '"></script>' .
+                    '<script src="' . self::include_plugin_url('assets/js/jquery/ui/core.min.js') . '"></script>' .
+                    '<script src="' . self::include_plugin_url('assets/js/jquery/ui/draggable.min.js') . '"></script>' .
+
+                    '<script src="' . self::include_plugin_url('assets/js/jquery/ui/mouse.min.js') . '"></script>' .
+                    '<script src="' . self::include_plugin_url('assets/js/jquery/ui/menu.min.js') . '"></script>' .
 
 
-                self::add_admin_enqueue_scripts().
+                    self::add_admin_enqueue_scripts().
 
-                '<script>csf_vars={color_palette:{},i18n:{confirm:"确定吗？",typing_text:"请输入 %s 个或更多字",searching_text:"搜索...",no_results_text:"没有搜到"}}</script>';
-            echo $old . $script;
-            if (self::$enqueue_media){
-                wp_print_media_templates();
+                    '<script>csf_vars={color_palette:{},i18n:{confirm:"确定吗？",typing_text:"请输入 %s 个或更多字",searching_text:"搜索...",no_results_text:"没有搜到"}}</script>';
+                echo $old . $script;
+                if (self::$enqueue_media){
+                    wp_print_media_templates();
+                }
+                self::$render_static_script = true;
+                return $old . $script;
             }
-            self::$render_static_script = true;
-            return $old . $script;
+            return $old ;
         }
 
         // Initalize
@@ -340,6 +349,7 @@ if (!class_exists('CSF_Setup')) {
                 '');
             $form->addInput($val);
             $form->setAttribute('style','display:none');
+
             return $form;
         }
 

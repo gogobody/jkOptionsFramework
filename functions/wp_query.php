@@ -2599,8 +2599,6 @@ if (!class_exists('WP_Query')) {
             $old_request = "SELECT $found_rows $distinct $fields FROM {$wpdb->getPrefix()}contents $join WHERE 1=1 $where $groupby $orderby $limits";
             $old_request = str_replace('post_type', 'type', $old_request);
             $this->request = $old_request;
-
-
             if ('ids' === $q['fields']) {
                 if (null === $this->posts) {
                     $this->posts = $wpdb->get_col($this->request);
@@ -2684,11 +2682,11 @@ if (!class_exists('WP_Query')) {
                     $this->set_found_posts($q, $limits);
                 }
             }
-
             // Convert to WP_Post objects.
             if ($this->posts) {
                 /** @var WP_Post[] */
                 $this->posts = array_map('get_post', $this->posts);
+
             }
 
             // Check post status to determine if post should be displayed.

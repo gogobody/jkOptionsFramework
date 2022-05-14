@@ -1,7 +1,5 @@
 <?php
 
-
-
 if ( ! defined( 'ABSPATH' ) ) {
     define( 'ABSPATH', __DIR__ . '/' );
 }
@@ -43,9 +41,12 @@ if (class_exists('\Typecho\I18n')){
     I18n::setLang(plugin_dir_path(__FILE__) . 'languages/zh_CN.mo');
 }
 
-// set body class
-global $bodyClass;
-$bodyClass = $bodyClass.'wp-core-ui';
+// 仅在插件页或者主题页添加 class
+if (str_contains($_SERVER['REQUEST_URI'], 'plugin.php') or str_contains($_SERVER['REQUEST_URI'], 'theme.php')){
+    // set body class
+    global $bodyClass;
+    $bodyClass = $bodyClass.'wp-core-ui';
+}
 
 require_once plugin_dir_path(__FILE__) . 'functions/defines.php';
 require_once plugin_dir_path(__FILE__) . 'functions/plugin.php';

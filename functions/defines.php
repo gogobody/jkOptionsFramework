@@ -2975,8 +2975,7 @@ if (!function_exists('get_post')) {
                 $_post = (object)$post;
 
             } else {
-                $_post = $db->fetchObject($db->select()->from('table.contents')->where('table.contents.status = ?', 'publish')
-                    ->where('cid = ?', $post));
+                $_post = $db->fetchObject($db->select()->from('table.contents')->where('cid = ?', $post));
             }
 
         }
@@ -3829,11 +3828,10 @@ if (!function_exists('update_term_cache')) {
             // Create a copy in case the array was passed by reference.
 
             $_term = clone $term;
-
             // Object ID should not be cached.
             unset($_term->object_id);
 
-            wp_cache_add($term->term_id, $_term, 'terms');
+            wp_cache_add($term->mid, $_term, 'terms');
         }
     }
 }

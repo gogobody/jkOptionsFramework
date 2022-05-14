@@ -286,16 +286,62 @@ window.wp = window.wp || {};
         })
     }, I.fn.csf_sticky = function () {
         return this.each(function () {
-            var i = I(this), a = I(_), s = i.find(".csf-header-inner"),
-                c = parseInt(s.css("padding-left")) + parseInt(s.css("padding-right")), r = 0, o = !1, e = function () {
-                    o || requestAnimationFrame(function () {
-                        var e, t, n;
-                        e = i.offset().top, t = Math.max(8, e - r), n = a.innerWidth(), t <= 8 && 782 < n ? (s.css({width: i.outerWidth() - c}), i.css({height: i.outerHeight()}).addClass("csf-sticky")) : (s.removeAttr("style"), i.removeAttr("style").removeClass("csf-sticky")), o = !1
-                    }), o = !0
-                }, t = function () {
-                    r = a.scrollTop(), e()
+            // var i = I(this), a = I(_), s = i.find(".csf-header-inner"),
+            //     c = parseInt(s.css("padding-left")) + parseInt(s.css("padding-right")), r = 0, o = !1, e = function () {
+            //         o || requestAnimationFrame(function () {
+            //             var e, t, n;
+            //             e = i.offset().top, t = Math.max(8, e - r), n = a.innerWidth(), t <= 8 && 782 < n ? (s.css({width: i.outerWidth() - c}), i.css({height: i.outerHeight()}).addClass("csf-sticky")) : (s.removeAttr("style"), i.removeAttr("style").removeClass("csf-sticky")), o = !1
+            //         }), o = !0
+            //     }, t = function () {
+            //         r = a.scrollTop(), e()
+            //     };
+            // a.on("scroll resize", t), t()
+
+            var $this     = I(this),
+                $window   = I(window),
+                $inner    = $this.find('.csf-header-inner'),
+                padding   = parseInt( $inner.css('padding-left') ) + parseInt( $inner.css('padding-right') ),
+                offset    = 8,
+                scrollTop = 0,
+                lastTop   = 0,
+                ticking   = false,
+                stickyUpdate = function() {
+
+                    var offsetTop = $this.offset().top,
+                        stickyTop = Math.max(offset, offsetTop - scrollTop ),
+                        winWidth  = $window.innerWidth();
+
+                    if ( stickyTop <= offset && winWidth > 782 ) {
+                        $inner.css({width: $this.outerWidth()-padding});
+                        $this.css({height: $this.outerHeight()}).addClass( 'csf-sticky' );
+                    } else {
+                        $inner.removeAttr('style');
+                        $this.removeAttr('style').removeClass( 'csf-sticky' );
+                    }
+
+                },
+                requestTick = function() {
+
+                    if ( !ticking ) {
+                        requestAnimationFrame( function() {
+                            stickyUpdate();
+                            ticking = false;
+                        });
+                    }
+
+                    ticking = true;
+
+                },
+                onSticky  = function() {
+
+                    scrollTop = $window.scrollTop();
+                    requestTick();
+
                 };
-            a.on("scroll resize", t), t()
+
+            $window.on( 'scroll resize', onSticky);
+
+            onSticky();
         })
     }, I.fn.csf_dependency = function () {
         return this.each(function () {
