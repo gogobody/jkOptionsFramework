@@ -81,6 +81,16 @@ if (!class_exists('CSF_Setup')) {
 
         }
 
+        public static function activateEvent()
+        {
+            $db = \Typecho\Db::get();
+            $option_val_type = $db->fetchObject($db->query('SELECT DATA_TYPE as dt FROM INFORMATION_SCHEMA.COLUMNS  WHERE table_name = \''.$db->getPrefix().'options\' and column_name=\'value\''))->dt;
+            if ($option_val_type == 'text')
+            {
+                $db->query('alter table `'.$db->getPrefix().'options` modify column `value` mediumtext');
+            }
+        }
+
         public static function get_enqueue_style($header = null)
         {
             // 仅在插件页或者主题页添加
@@ -435,13 +445,11 @@ if (!class_exists('CSF_Setup')) {
 
             $foldername = str_replace($directory, '', $dirname);
 
-            $protocol_uri = (is_ssl()) ? 'https' : 'http';
+//            $protocol_uri = (is_ssl()) ? 'https' : 'http';
 //      $directory_uri  = set_url_scheme( $directory_uri, $protocol_uri );
-
 
             self::$dir = $dirname;
             self::$url = $directory_uri . $foldername;
-
         }
 
         public static function located_plugin(): bool

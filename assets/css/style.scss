@@ -12,9 +12,8 @@
   border-color: #135e96;
   color: #fff;
 }
-
 .wp-core-ui select:hover {
-  color: #2271b1;
+  color: #2271b1
 }
 
 .wp-core-ui select {
@@ -79,7 +78,7 @@
 }
 
 .dashicons, .dashicons-before:before {
-  font-family: dashicons;
+  font-family: dashicons, serif;
   display: inline-block;
   line-height: 1;
   font-weight: 400;
@@ -1503,6 +1502,22 @@ html {
 
 /*! This file is auto-generated */
 .wp-core-ui {
+  .ui-content{
+    a {
+      color: #2271b1;
+      transition-property: border, background, color;
+      transition-duration: .05s;
+      transition-timing-function: ease-in-out
+    }
+
+    a, div {
+      outline: 0
+    }
+
+    a:active, a:hover {
+      color: #135e96
+    }
+  }
   .select:before, .select:after {
     content: none;
   }
@@ -1707,20 +1722,7 @@ html {
     line-height: inherit
   }
 
-  a {
-    color: #2271b1;
-    transition-property: border, background, color;
-    transition-duration: .05s;
-    transition-timing-function: ease-in-out
-  }
 
-  a, div {
-    outline: 0
-  }
-
-  a:active, a:hover {
-    color: #135e96
-  }
 
   .wp-person a:focus .gravatar, a:focus, a:focus .media-icon img {
     color: #043959;

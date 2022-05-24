@@ -567,7 +567,7 @@ if (!class_exists('CSF_Options')) {
 
 //      do_action( 'csf_options_before' );
 
-            echo '<div id="wpwrap" class="wp-core-ui"><div id="wpcontent"><div id="wpbody" role="main">';
+            echo '<div id="wpwrap" class="wp-core-ui ui-content"><div id="wpcontent"><div id="wpbody" role="main">';
             echo '<div class="csf csf-options' . esc_attr($theme . $class . $wrapper_class) . '" data-slug="' . esc_attr($this->args['menu_slug']) . '" data-unique="' . esc_attr($this->unique) . '">';
 
             echo '<div class="csf-container">';

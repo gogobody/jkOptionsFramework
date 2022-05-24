@@ -1,6 +1,6 @@
 <?php
 namespace TypechoPlugin\jkOptionsFramework;
-use Helper;
+use Utils\Helper;
 use Typecho\Plugin\PluginInterface;
 use Typecho\Widget\Helper\Form;
 use Typecho\{Plugin\Exception, Widget, Db};
@@ -29,7 +29,7 @@ class Plugin implements PluginInterface
 
         \Typecho\Plugin::factory('admin/header.php')->header_999 = [__CLASS__, 'enqueue_style'];
         \Typecho\Plugin::factory('admin/footer.php')->end_999 = [__CLASS__, 'enqueue_script'];
-
+        \CSF::activateEvent();
     }
 
     public static function deactivate()
