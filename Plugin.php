@@ -3,8 +3,10 @@ namespace TypechoPlugin\jkOptionsFramework;
 use Utils\Helper;
 use Typecho\Plugin\PluginInterface;
 use Typecho\Widget\Helper\Form;
-use Typecho\{Plugin\Exception, Widget, Db};
+use Typecho\{Plugin\Exception, Widget, Db, Widget\Request as WidgetRequest};
 use \CSF as CSF;
+use Widget\Options;
+
 /**
  * jkOptionsFramework 是 Typecho 第一款选项框架
  * @package jkOptionsFramework

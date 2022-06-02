@@ -422,7 +422,7 @@ if (!class_exists('CSF_Setup')) {
         public static function createSection($id, $sections)
         {
             self::$args['sections'][$id][] = $sections;
-            self::set_used_fields($sections);
+            self::set_used_fields($sections, $id);
         }
 
         // Set directory constants
@@ -605,7 +605,7 @@ if (!class_exists('CSF_Setup')) {
         }
 
         // Set all of used fields
-        public static function set_used_fields($sections)
+        public static function set_used_fields($sections, $id)
         {
 
             if (!empty($sections['fields'])) {
@@ -613,19 +613,19 @@ if (!class_exists('CSF_Setup')) {
                 foreach ($sections['fields'] as $field) {
 
                     if (!empty($field['fields'])) {
-                        self::set_used_fields($field);
+                        self::set_used_fields($field, $id);
                     }
 
                     if (!empty($field['tabs'])) {
-                        self::set_used_fields(array('fields' => $field['tabs']));
+                        self::set_used_fields(array('fields' => $field['tabs']), $id);
                     }
 
                     if (!empty($field['accordions'])) {
-                        self::set_used_fields(array('fields' => $field['accordions']));
+                        self::set_used_fields(array('fields' => $field['accordions']), $id);
                     }
 
                     if (!empty($field['type'])) {
-                        self::$fields[$field['type']] = $field;
+                        self::$fields[$id][$field['type']] = $field;
                     }
 
                 }
@@ -714,10 +714,16 @@ if (!class_exists('CSF_Setup')) {
 
 
             // Enqueue fields scripts and styles
+
             $enqueued = array();
             $style_or_script = '';
-            if (!empty(self::$fields)) {
-                foreach (self::$fields as $field) {
+            // get plugin or theme first 根据主题或者插件的名字配置
+            $ptid = get_plugin_theme_name();
+            if ($ptid == null){
+                return $style_or_script;
+            }
+            if (!empty(self::$fields[$ptid])) {
+                foreach (self::$fields[$ptid] as $field) {
                     if (!empty($field['type'])) {
                         $type = $field['type'];
                         if ($type == 'media'){

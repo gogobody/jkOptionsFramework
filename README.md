@@ -28,12 +28,14 @@
 
 打开你的主题的 **functions.php** 然后粘贴以下代码.
 
+注意： $prefix 必须为你的插件或者主题的目录的名字！！！
+
 ```php
 // Check core class for avoid errors
 if( class_exists( 'CSF' ) ) {
 
   // Set a unique slug-like ID
-  // 唯一的配置识别号
+  // 唯一的配置识别号，必须为你的插件或者主题的目录的名字！！！
   $prefix = 'my_framework'; 
 
   // Create options

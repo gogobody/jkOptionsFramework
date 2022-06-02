@@ -1,4 +1,6 @@
-<?php if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access directly.
+<?php use Widget\Options;
+
+if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access directly.
 /**
  *
  * Array search key & value
@@ -55,4 +57,24 @@ if ( ! function_exists( 'csf_wp_editor_api' ) ) {
     global $wp_version;
     return version_compare( $wp_version, '4.8', '>=' );
   }
+}
+
+
+if (!function_exists('get_plugin_theme_name')){
+    function get_plugin_theme_name(){
+        $requestObject = \Typecho\Request::getInstance();
+        $curUri = $requestObject->getRequestUri();
+        if (strpos($curUri, 'options-plugin.php')!==false){ // if is plugin
+            parse_str(parse_url($curUri,PHP_URL_QUERY),$query_arr);
+
+            if (array_key_exists('config', $query_arr)){
+                return $query_arr['config'];
+
+            }
+        } elseif (strpos($curUri, 'options-theme.php')!==false){
+            $options = Options::alloc();
+            return $options->theme;
+        }
+        return null;
+    }
 }
