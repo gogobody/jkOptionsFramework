@@ -4,6 +4,7 @@ use Typecho\Common;
 use Typecho\Plugin;
 use Utils\Helper;
 use Typecho\I18n;
+use Widget\Themes\Config;
 
 if (!defined('ABSPATH')) {
     die;
@@ -91,10 +92,41 @@ if (!class_exists('CSF_Setup')) {
             }
         }
 
+        public static function load_statics(){
+            $requestObject = \Typecho\Request::getInstance();
+            $curUri = $requestObject->getRequestUri();
+
+            $isPlugin = strpos($curUri, 'options-plugin.php')!==false;
+            $isTheme = strpos($curUri, 'options-theme.php')!==false;
+            if ($isTheme){
+                if (!Config::isExists()){
+                    return false;
+                }
+            } elseif ($isPlugin){
+                $pluginName = get_plugin_theme_name();
+                /** 获取插件入口 */
+                [$pluginFileName, $className] = Plugin::portal(
+                    $pluginName,
+                    __TYPECHO_ROOT_DIR__ . '/' . __TYPECHO_PLUGIN_DIR__
+                );
+                require_once $pluginFileName;
+                /** 判断实例化是否成功 */
+                if (
+                    class_exists($className) || method_exists($className, 'activate')
+                ) {
+                    call_user_func([$className, 'activate']);
+                }
+            }
+            $loads_statics = $isPlugin || $isTheme;
+
+            return $loads_statics;
+        }
         public static function get_enqueue_style($header = null)
         {
+            $loads_statics = self::load_statics();
             // 仅在插件页或者主题页添加
-            if (str_contains($_SERVER['REQUEST_URI'], 'plugin.php') or str_contains($_SERVER['REQUEST_URI'], 'theme.php')) {
+            if ($loads_statics) { // if is plugin
+
                 if (self::$render_static_style) return $header;
                 $style = '<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/5.15.4/css/all.min.css?ver=5.15.4">' .
                     '<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/5.15.4/css/v4-shims.min.css?ver=5.15.4">' .
@@ -112,9 +144,9 @@ if (!class_exists('CSF_Setup')) {
 
         public static function get_enqueue_script($old = null)
         {
+            $loads_statics = self::load_statics();
             // 仅在插件页或者主题页添加 class
-            if (str_contains($_SERVER['REQUEST_URI'], 'plugin.php') or str_contains($_SERVER['REQUEST_URI'], 'theme.php')) {
-
+            if ($loads_statics) { // if is plugin
                 if (self::$render_static_script) return $old;
                 $script = '<script src="' . self::include_plugin_url('assets/js/lodash.min.js') . '"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/plugins.min.js') . '"></script>' .

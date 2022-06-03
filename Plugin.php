@@ -48,7 +48,6 @@ class Plugin implements PluginInterface
 
     public static function enqueue_script($old=null)
     {
-
         return CSF::get_enqueue_script($old);
     }
 
