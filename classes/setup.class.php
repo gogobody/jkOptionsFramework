@@ -152,14 +152,11 @@ if (!class_exists('CSF_Setup')) {
                     '<script src="' . self::include_plugin_url('assets/js/plugins.min.js') . '"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/main.min.js') . '"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/iris.min.js') . '"></script>' .
-
                     '<script src="' . self::include_plugin_url('assets/js/color-picker.min.js') . '"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/jquery/ui/core.min.js') . '"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/jquery/ui/draggable.min.js') . '"></script>' .
-
                     '<script src="' . self::include_plugin_url('assets/js/jquery/ui/mouse.min.js') . '"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/jquery/ui/menu.min.js') . '"></script>' .
-
 
                     self::add_admin_enqueue_scripts().
 
