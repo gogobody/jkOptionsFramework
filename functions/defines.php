@@ -6,16 +6,16 @@ use Typecho\Common;
 use Typecho\Cookie;
 use Typecho\Db;
 use Typecho\Widget;
-
+require_once 'options.php';
 require_once 'class-list-util.php';
+require_once 'kses.php';
 
-const FRAMEWORK_PLUGIN_NAME = 'plugin:jkOptionsFramework_';
-const FRAMEWORK_KEY_PARMAS_NAME = 'plugin:jkOF_key_params';
 
 define( 'KB_IN_BYTES', 1024 );
 define( 'MB_IN_BYTES', 1024 * KB_IN_BYTES );
 define( 'GB_IN_BYTES', 1024 * MB_IN_BYTES );
 define( 'TB_IN_BYTES', 1024 * GB_IN_BYTES );
+
 
 
 if (!function_exists('wp_is_stream')) {
@@ -371,143 +371,7 @@ if (!function_exists('wp_unslash')) {
         return stripslashes_deep($value);
     }
 }
-if (!function_exists('get_option')) {
 
-// get option for framework
-    function get_option($option, $default = false)
-    {
-        $db = Db::get();
-        $pluginName = FRAMEWORK_PLUGIN_NAME;
-        $select = $db->select()->from('table.options')
-            ->where('name = ?', $pluginName);
-
-        $options = $db->fetchRow($select);
-        if (empty($options)) {
-            return $default;
-        } else {
-
-            $options = unserialize($options['value']);
-            if (array_key_exists($option, $options)) {
-                return $options[$option];
-            } else {
-                return $default;
-            }
-        }
-    }
-}
-if (!function_exists('update_option')) {
-    function update_option($option, $value, $autoload = null)
-    {
-        $db = Db::get();
-        $pluginName = FRAMEWORK_PLUGIN_NAME;
-        $select = $db->select()->from('table.options')
-            ->where('name = ?', $pluginName);
-
-        $options = $db->fetchRow($select);
-        $settings = [$option => $value];
-        if (empty($options)) {
-            $db->query($db->insert('table.options')
-                ->rows([
-                    'name' => $pluginName,
-                    'value' => serialize($settings),
-                    'user' => 0
-                ]));
-        } else {
-            $options = unserialize($options['value']);
-            $options[$option] = $value;
-            $db->query($db->update('table.options')
-                ->rows(['value' => serialize($options)])
-                ->where('name = ?', $pluginName)
-                ->where('user = ?', 0));
-        }
-    }
-}
-if (!function_exists('update_jk_key_params')) {
-    function update_jk_key_params($option, $value, $autoload = null)
-    {
-        $db = Db::get();
-        $pluginName = FRAMEWORK_KEY_PARMAS_NAME;
-        $select = $db->select()->from('table.options')
-            ->where('name = ?', $pluginName);
-
-        $options = $db->fetchRow($select);
-        $settings = [$option => $value];
-        if (empty($options)) {
-            $db->query($db->insert('table.options')
-                ->rows([
-                    'name' => $pluginName,
-                    'value' => serialize($settings),
-                    'user' => 0
-                ]));
-        } else {
-            $options = unserialize($options['value']);
-            $options[$option] = $value;
-            $db->query($db->update('table.options')
-                ->rows(['value' => serialize($options)])
-                ->where('name = ?', $pluginName)
-                ->where('user = ?', 0));
-        }
-    }
-}
-if (!function_exists('get_jk_key_params')) {
-
-// get option for framework
-    function get_jk_key_params($option, $default = false)
-    {
-        $db = Db::get();
-        $pluginName = FRAMEWORK_KEY_PARMAS_NAME;
-        $select = $db->select()->from('table.options')
-            ->where('name = ?', $pluginName);
-
-        $options = $db->fetchRow($select);
-        if (empty($options)) {
-            return $default;
-        } else {
-            $options = unserialize($options['value']);
-            if (array_key_exists($option, $options)) {
-                return $options[$option];
-            } else {
-                return $default;
-            }
-        }
-    }
-}
-if (!function_exists('delete_option')) {
-
-    function delete_option($option)
-    {
-        $db = Db::get();
-        $pluginName = FRAMEWORK_PLUGIN_NAME;
-        if (is_scalar($option)) {
-            $option = trim($option);
-        }
-
-        if (empty($option)) {
-            return false;
-        }
-
-        wp_protect_special_option($option);
-
-        // Get the ID, if no ID then return.
-        $select = $db->select()->from('table.options')
-            ->where('name = ?', $pluginName);
-
-        $row = $db->fetchRow($select);
-        if (is_null($row)) {
-            return false;
-        }
-
-        $result = $db->query($db->delete('table.options')->where('name = ?', 'plugin:' . $pluginName));
-
-
-        if ($result) {
-
-            return true;
-        }
-
-        return false;
-    }
-}
 if (!function_exists('wp_parse_str')) {
     function wp_parse_str($string, &$array)
     {

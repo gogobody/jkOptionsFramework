@@ -1739,7 +1739,7 @@ html {
 .wp-core-ui blockquote {
   margin: 1em;
 }
-.wp-core-ui dd, .wp-core-ui li {
+.wp-core-ui .wp-core-ui dd, .wp-core-ui .wp-core-ui li {
   margin-bottom: 6px;
 }
 .wp-core-ui h1, .wp-core-ui h2, .wp-core-ui h3, .wp-core-ui h4, .wp-core-ui h5, .wp-core-ui h6 {

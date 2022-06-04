@@ -1,11 +1,13 @@
 <?php
-
+/**
+ * 路由
+ */
 namespace TypechoPlugin\jkOptionsFramework;
 require_once 'functions/defines.php';
 require_once 'jkoptions-framework.php';
 
 use CSF;
-use Helper;
+use Utils\Helper;
 
 global $cfs_options;
 $cfs_options = [];

@@ -1759,10 +1759,12 @@ html {
   blockquote {
     margin: 1em
   }
-
-  dd, li {
-    margin-bottom: 6px
+  .wp-core-ui{
+    dd, li {
+      margin-bottom: 6px
+    }
   }
+
 
   h1, h2, h3, h4, h5, h6 {
     display: block;
