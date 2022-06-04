@@ -754,6 +754,7 @@ if (!class_exists('CSF_Setup')) {
             if ($ptid == null){
                 return $style_or_script;
             }
+
             if (!empty(self::$fields[$ptid])) {
                 foreach (self::$fields[$ptid] as $field) {
                     if (!empty($field['type'])) {

@@ -9,6 +9,8 @@ require_once 'functions/options.php';
 if (!class_exists('jkOptions')) {
     class jkOptions {
 
+        private static ?jkOptions $instance = null;
+
         public function __construct()
         {
 
@@ -16,7 +18,10 @@ if (!class_exists('jkOptions')) {
 
         public static function getInstance(): jkOptions
         {
-            return new self();
+            if (is_null(self::$instance)) {
+                self::$instance = new self();
+            }
+            return self::$instance;
         }
 
         public static function get_option($option, $default = false)
