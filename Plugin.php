@@ -9,8 +9,8 @@ use Widget\Options;
 
 /**
  * jkOptionsFramework 是 Typecho 第一款选项框架
- * <div class="simpleAdminStyle"><a style="width:fit-content" id="simpleAdmin">版本检测中..</div>&nbsp;</div><style>.simpleAdminStyle{margin-top: 5px;}.simpleAdminStyle a{background: #4DABFF;padding: 5px;color: #fff;}</style>
- * <script>var simversion="1.0.0";function update_detec(){var container=document.getElementById("simpleAdmin");if(!container){return}var ajax=new XMLHttpRequest();container.style.display="block";ajax.open("get","https://api.github.com/repos/gogobody/jkOptionsFramework/releases/latest");ajax.send();ajax.onreadystatechange=function(){if(ajax.readyState===4&&ajax.status===200){var obj=JSON.parse(ajax.responseText);var newest=obj.name;if(newest>simversion){container.innerHTML="发现新版本："+obj.name+'。下载地址：<a href="'+obj.zipball_url+'">点击下载</a>'+"<br>您目前的版本:"+String(simversion)+"。"}else{container.innerHTML="您目前使用的是最新版。"}}}};update_detec();</script>
+ * <div class="jkOptionsStyle"><a style="width:fit-content" id="jkOptions">版本检测中..</div>&nbsp;</div><style>.jkOptionsStyle{margin-top: 5px;}.jkOptionsStyle a{font-size: smaller;background: #4DABFF;padding: 5px;color: #fff;}</style>
+ * <script>var simversion="1.0.0";function update_detec(){var container=document.getElementById("jkOptions");if(!container){return}var ajax=new XMLHttpRequest();container.style.display="block";ajax.open("get","https://api.github.com/repos/gogobody/jkOptionsFramework/releases/latest");ajax.send();ajax.onreadystatechange=function(){if(ajax.readyState===4&&ajax.status===200){var obj=JSON.parse(ajax.responseText);var newest=obj.name;if(newest>simversion){container.innerHTML="发现新版本："+obj.name+'。下载地址：<a href="'+obj.zipball_url+'">点击下载</a>'+"<br>您目前的版本:"+String(simversion)+"。"}else{container.innerHTML="您目前使用的是最新版。"}}}};update_detec();</script>
  * @package jkOptionsFramework
  * @author gogobody
  * @version 1.0.0
