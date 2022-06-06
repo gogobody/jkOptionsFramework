@@ -43,7 +43,7 @@ if (class_exists('\Typecho\I18n')){
 
 // 仅在插件页或者主题页添加 class
 // Add admin body class
-if (str_contains($_SERVER['REQUEST_URI'], 'plugin.php') or str_contains($_SERVER['REQUEST_URI'], 'theme.php')){
+if (strpos($_SERVER['REQUEST_URI'], 'plugin.php')!==false or strpos($_SERVER['REQUEST_URI'], 'theme.php')){
     // set body class
     global $bodyClass;
     $bodyClass = $bodyClass.'wp-core-ui csf-fa5-shims';

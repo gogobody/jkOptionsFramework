@@ -30,7 +30,7 @@ class Plugin implements PluginInterface
 
     public static function activate()
     {
-
+        \Typecho\Plugin::factory('index.php')->begin = [__CLASS__, 'initevent'];
         \Typecho\Plugin::factory('admin/header.php')->header_999 = [__CLASS__, 'enqueue_style'];
         \Typecho\Plugin::factory('admin/footer.php')->end_999 = [__CLASS__, 'enqueue_script'];
         \CSF::activateEvent();
@@ -43,6 +43,12 @@ class Plugin implements PluginInterface
 
     }
 
+    public static function initevent()
+    {
+        if (!class_exists('jkOptions')){
+            require_once \Utils\Helper::options()->pluginDir('jkOptionsFramework').'/jkOptions.php';
+        }
+    }
     public static function enqueue_style($header=null)
     {
         return CSF::get_enqueue_style($header);
