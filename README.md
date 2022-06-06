@@ -31,6 +31,11 @@
 注意： $prefix 必须为你的插件或者主题的目录的名字！！！
 
 ```php
+// 引入文件
+if(!class_exists('CSF')){
+    require_once Helper::options()->pluginDir('jkOptionsFramework').'/jkoptions-framework.php';
+}
+
 // Check core class for avoid errors
 if( class_exists( 'CSF' ) ) {
 
@@ -89,7 +94,11 @@ function themeConfig($form)
 ```
 如何获取一个配置的值？
 ```php
-$options = get_option( 'my_framework' ); // 唯一的识别号
+// 引入文件
+if (!class_exists('jkOptions')){
+    require_once \Utils\Helper::options()->pluginDir('jkOptionsFramework').'/jkOptions.php';
+}
+$options = jkOptions::getInstance()::get_option( 'my_framework' ); // 唯一的识别号
 
 echo $options['opt-text']; // 选项的id
 echo $options['opt-textarea']; // 选项的id
