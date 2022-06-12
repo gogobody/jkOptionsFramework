@@ -9,7 +9,7 @@ require_once 'functions/options.php';
 if (!class_exists('jkOptions')) {
     class jkOptions {
 
-        private static ?jkOptions $instance = null;
+        private static $instance = null;
 
         public function __construct()
         {
