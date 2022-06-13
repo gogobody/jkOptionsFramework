@@ -372,7 +372,6 @@ if (!function_exists('wp_print_media_templates')) {
                         FileUploaded: function (up, file, result) {
                             if (200 == result.status) {
                                 var data = $.parseJSON(result.response);
-
                                 if (data) {
                                     fileUploadComplete(file.id, data[0], data[1]);
                                     return;

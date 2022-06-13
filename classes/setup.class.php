@@ -756,7 +756,7 @@ if (!class_exists('CSF_Setup')) {
                 foreach (self::$fields[$ptid] as $field) {
                     if (!empty($field['type'])) {
                         $type = $field['type'];
-                        if ($type == 'media'){
+                        if (in_array($type,['media','upload'])){
                             self::$enqueue_media = true;
                         }else {
                             $classname = 'CSF_Field_' . $type;
