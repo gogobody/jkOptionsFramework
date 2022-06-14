@@ -2863,16 +2863,14 @@ if (!function_exists('get_term')) {
 
     function get_term($cat = null, $output = OBJECT, $filter = 'raw')
     {
-//    $_cat = Widget::widget('\Widget\Base\Metas@mid_'.$cat['mid']);
-//    $_cat->push($cat);
-//
-//    if (ARRAY_A === $output) {
-//        return $_cat->to_array();
-//    } elseif (ARRAY_N === $output) {
-//        return array_values($_cat->to_array());
-//    }
-
-        return $cat;
+        $db = Db::get();
+        $_cat = $db->fetchRow($db->select()->from('table.metas')->where('mid = ?',$cat));
+        if (ARRAY_A === $output) {
+            return $_cat;
+        } elseif (ARRAY_N === $output) {
+            return array_values($_cat);
+        }
+        return (OBJECT)$_cat;
     }
 }
 if (!function_exists('convert_to_object')) {
@@ -2888,8 +2886,8 @@ if (!function_exists('get_the_title')) {
     {
         $post = get_post($post);
 
-        $title = isset($post->post_title) ? $post->post_title : '';
-        $id = isset($post->ID) ? $post->ID : 0;
+        $title = isset($post->title) ? $post->title : '';
+        $id = isset($post->cid) ? $post->cid : 0;
 
         if (!ty_is_admin()) {
             if (!empty($post->post_password)) {
@@ -2910,7 +2908,7 @@ if (!function_exists('get_the_title')) {
                  */
                 $protected_title_format = apply_filters('protected_title_format', $prepend, $post);
                 $title = sprintf($protected_title_format, $title);
-            } elseif (isset($post->post_status) && 'private' === $post->post_status) {
+            } elseif (isset($post->status) && 'private' === $post->status) {
 
                 /* translators: %s: Private post title. */
                 $prepend = __('Private: %s');
