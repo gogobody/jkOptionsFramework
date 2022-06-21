@@ -18,8 +18,9 @@ if (!defined('ABSPATH')) {
  *
  */
 
-define('WP_PLUGIN_URL', Helper::options()->pluginUrl);
-
+if (!defined('WP_PLUGIN_URL')){
+    define('WP_PLUGIN_URL', Helper::options()->pluginUrl);
+}
 if (!class_exists('CSF_Setup')) {
     class CSF_Setup
     {
