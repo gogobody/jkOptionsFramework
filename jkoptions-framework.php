@@ -69,8 +69,6 @@ if ( function_exists( 'wp_cache_init' ) ) {
 // init router
 require_once 'jkRouter.php';
 
-jkRouter::initRouter();
-
 // init role
 require_once plugin_dir_path(__FILE__) . 'functions/class.wp_roles.php';
 $GLOBALS['wp_roles'] = new WP_Roles();

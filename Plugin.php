@@ -30,6 +30,7 @@ class Plugin implements PluginInterface
 
     public static function activate()
     {
+        jkRouter::initRouter();
         \Typecho\Plugin::factory('index.php')->begin = [__CLASS__, 'initevent'];
         \Typecho\Plugin::factory('admin/header.php')->header_999 = [__CLASS__, 'enqueue_style'];
         \Typecho\Plugin::factory('admin/footer.php')->end_999 = [__CLASS__, 'enqueue_script'];
@@ -59,7 +60,6 @@ class Plugin implements PluginInterface
 
     public static function config(Form $form)
     {
-
         CSF::setup(basename(__DIR__));
 
         return CSF::setTypechoOptionForm($form);
