@@ -38,9 +38,7 @@ class Plugin implements PluginInterface
 
     public static function deactivate()
     {
-        Helper::removeRoute('saveJKoptions');
-        Helper::removeRoute('saveJKoptions_ajax');
-
+        jkRouter::removeRouter();
     }
 
     public static function initevent()

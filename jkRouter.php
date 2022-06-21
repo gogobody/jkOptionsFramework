@@ -20,7 +20,12 @@ class jkRouter extends \Typecho\Widget
         // form action by submit
         Helper::addRoute('saveJKoptions', '/jkoptions/save', __CLASS__, 'saveJKoptions');
         Helper::addRoute('saveJKoptions_ajax', '/jkoptions/ajax', __CLASS__, 'saveJKoptionsByAjax');
+    }
 
+    public static function removeRouter()
+    {
+        Helper::removeRoute('saveJKoptions');
+        Helper::removeRoute('saveJKoptions_ajax');
     }
 
     public function saveJKoptions()
