@@ -11,11 +11,18 @@ require_once 'class-list-util.php';
 require_once 'kses.php';
 
 
-define( 'KB_IN_BYTES', 1024 );
-define( 'MB_IN_BYTES', 1024 * KB_IN_BYTES );
-define( 'GB_IN_BYTES', 1024 * MB_IN_BYTES );
-define( 'TB_IN_BYTES', 1024 * GB_IN_BYTES );
-
+if (!defined('KB_IN_BYTES')){
+    define( 'KB_IN_BYTES', 1024 );
+}
+if (!defined('MB_IN_BYTES')) {
+    define( 'MB_IN_BYTES', 1024 * KB_IN_BYTES );
+}
+if (!defined('GB_IN_BYTES')) {
+    define( 'GB_IN_BYTES', 1024 * MB_IN_BYTES );
+}
+if (!defined('TB_IN_BYTES')) {
+    define( 'TB_IN_BYTES', 1024 * GB_IN_BYTES );
+}
 
 
 if (!function_exists('wp_is_stream')) {
@@ -2323,12 +2330,24 @@ if (!function_exists('is_rtl')) {
  * @since 2.5.0
  *
  */
-define('MINUTE_IN_SECONDS', 60);
-define('HOUR_IN_SECONDS', 60 * MINUTE_IN_SECONDS);
-define('DAY_IN_SECONDS', 24 * HOUR_IN_SECONDS);
-define('WEEK_IN_SECONDS', 7 * DAY_IN_SECONDS);
-define('MONTH_IN_SECONDS', 30 * DAY_IN_SECONDS);
-define('YEAR_IN_SECONDS', 365 * DAY_IN_SECONDS);
+if (!defined('MINUTE_IN_SECONDS')){
+    define('MINUTE_IN_SECONDS', 60);
+}
+if (!defined('HOUR_IN_SECONDS')){
+    define('HOUR_IN_SECONDS', 60 * MINUTE_IN_SECONDS);
+}
+if (!defined('DAY_IN_SECONDS')){
+    define('DAY_IN_SECONDS', 24 * HOUR_IN_SECONDS);
+}
+if (!defined('WEEK_IN_SECONDS')){
+    define('WEEK_IN_SECONDS', 7 * DAY_IN_SECONDS);
+}
+if (!defined('MONTH_IN_SECONDS')){
+    define('MONTH_IN_SECONDS', 30 * DAY_IN_SECONDS);
+}
+if (!defined('YEAR_IN_SECONDS')){
+    define('YEAR_IN_SECONDS', 365 * DAY_IN_SECONDS);
+}
 if (!function_exists('wp_nonce_tick')) :
 
     function wp_nonce_tick()
@@ -2805,23 +2824,25 @@ if (!function_exists('sanitize_post')) {
         return $post;
     }
 }
-define('OBJECT', 'OBJECT');
+if (!defined('OBJECT')){
+    define('OBJECT', 'OBJECT');
+}
 // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ConstantNotUpperCase
-define('object', 'OBJECT'); // Back compat.
-/**
- * @since 2.5.0
- */
-define('OBJECT_K', 'OBJECT_K');
+if (!defined('object')) {
+    define('object', 'OBJECT'); // Back compat.
+}
 
-/**
- * @since 0.71
- */
-define('ARRAY_A', 'ARRAY_A');
+if (!defined('OBJECT_K')){
+    define('OBJECT_K', 'OBJECT_K');
+}
 
-/**
- * @since 0.71
- */
-define('ARRAY_N', 'ARRAY_N');
+if (!defined('ARRAY_A')){
+    define('ARRAY_A', 'ARRAY_A');
+}
+
+if (!defined('ARRAY_N')) {
+    define('ARRAY_N', 'ARRAY_N');
+}
 
 if (!function_exists('get_post')) {
     function get_post($post = null, $output = OBJECT, $filter = 'raw')

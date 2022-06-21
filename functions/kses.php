@@ -8,6 +8,52 @@ if ( ! defined( 'CUSTOM_TAGS' ) ) {
 // (e.g. if using namespaces / autoload in the current PHP environment).
 global $allowedposttags, $allowedtags, $allowedentitynames, $allowedxmlentitynames;
 
+
+/**
+ * Helper function to add global attributes to a tag in the allowed HTML list.
+ *
+ * @since 3.5.0
+ * @since 5.0.0 Added support for `data-*` wildcard attributes.
+ * @since 6.0.0 Added `dir`, `lang`, and `xml:lang` to global attributes.
+ *
+ * @access private
+ * @ignore
+ *
+ * @param array $value An array of attributes.
+ * @return array The array of attributes with global attributes added.
+ */
+if (!function_exists('_wp_add_global_attributes')){
+    function _wp_add_global_attributes( $value ) {
+        $global_attributes = array(
+            'aria-describedby' => true,
+            'aria-details'     => true,
+            'aria-label'       => true,
+            'aria-labelledby'  => true,
+            'aria-hidden'      => true,
+            'class'            => true,
+            'data-*'           => true,
+            'dir'              => true,
+            'id'               => true,
+            'lang'             => true,
+            'style'            => true,
+            'title'            => true,
+            'role'             => true,
+            'xml:lang'         => true,
+        );
+
+        if ( true === $value ) {
+            $value = array();
+        }
+
+        if ( is_array( $value ) ) {
+            return array_merge( $value, $global_attributes );
+        }
+
+        return $value;
+    }
+}
+
+
 if ( ! CUSTOM_TAGS ) {
     /**
      * KSES global for default allowable HTML tags.
@@ -656,60 +702,22 @@ if ( ! CUSTOM_TAGS ) {
  * @param array $inarray Unfiltered array.
  * @return array Fixed array with all lowercase keys.
  */
-function wp_kses_array_lc( $inarray ) {
-    $outarray = array();
+if (!function_exists('wp_kses_array_lc')) {
+    function wp_kses_array_lc($inarray)
+    {
+        $outarray = array();
 
-    foreach ( (array) $inarray as $inkey => $inval ) {
-        $outkey              = strtolower( $inkey );
-        $outarray[ $outkey ] = array();
+        foreach ((array)$inarray as $inkey => $inval) {
+            $outkey = strtolower($inkey);
+            $outarray[$outkey] = array();
 
-        foreach ( (array) $inval as $inkey2 => $inval2 ) {
-            $outkey2                         = strtolower( $inkey2 );
-            $outarray[ $outkey ][ $outkey2 ] = $inval2;
+            foreach ((array)$inval as $inkey2 => $inval2) {
+                $outkey2 = strtolower($inkey2);
+                $outarray[$outkey][$outkey2] = $inval2;
+            }
         }
-    }
 
-    return $outarray;
+        return $outarray;
+    }
 }
 
-/**
- * Helper function to add global attributes to a tag in the allowed HTML list.
- *
- * @since 3.5.0
- * @since 5.0.0 Added support for `data-*` wildcard attributes.
- * @since 6.0.0 Added `dir`, `lang`, and `xml:lang` to global attributes.
- *
- * @access private
- * @ignore
- *
- * @param array $value An array of attributes.
- * @return array The array of attributes with global attributes added.
- */
-function _wp_add_global_attributes( $value ) {
-    $global_attributes = array(
-        'aria-describedby' => true,
-        'aria-details'     => true,
-        'aria-label'       => true,
-        'aria-labelledby'  => true,
-        'aria-hidden'      => true,
-        'class'            => true,
-        'data-*'           => true,
-        'dir'              => true,
-        'id'               => true,
-        'lang'             => true,
-        'style'            => true,
-        'title'            => true,
-        'role'             => true,
-        'xml:lang'         => true,
-    );
-
-    if ( true === $value ) {
-        $value = array();
-    }
-
-    if ( is_array( $value ) ) {
-        return array_merge( $value, $global_attributes );
-    }
-
-    return $value;
-}
