@@ -99,6 +99,7 @@ if (!class_exists('CSF_Setup')) {
 
             $isPlugin = strpos($curUri, 'options-plugin.php')!==false;
             $isTheme = strpos($curUri, 'options-theme.php')!==false;
+            $usingJKF = true;
             if ($isTheme){
                 if (!Config::isExists()){
                     return false;
@@ -110,15 +111,23 @@ if (!class_exists('CSF_Setup')) {
                     $pluginName,
                     __TYPECHO_ROOT_DIR__ . '/' . __TYPECHO_PLUGIN_DIR__
                 );
+                // 引入插件文件，主要是为了在 header 获取相应配置，否则 $fields 获取不到
                 require_once $pluginFileName;
-                /** 判断实例化是否成功 */
-                if (
-                    class_exists($className) || method_exists($className, 'activate')
-                ) {
-                    call_user_func([$className, 'activate']);
+
+//                /** 判断实例化是否成功 */
+//                if (
+//                    class_exists($className) || method_exists($className, 'activate')
+//                ) {
+//                    call_user_func([$className, 'activate']);
+//                }
+
+                //
+                if (empty(CSF::$fields[$pluginName])) {
+                    $usingJKF = false;
                 }
             }
-            $loads_statics = $isPlugin || $isTheme;
+            $loads_statics = ($isPlugin || $isTheme) && $usingJKF;
+
 
             return $loads_statics;
         }
