@@ -49,7 +49,7 @@ if (!class_exists('CSF_Field_code_editor')) {
 
             // Do not loads CodeMirror in revslider page.
             if (in_array($page, array('revslider'))) {
-                return;
+                return '';
             }
             if ($enq_js){
                 return enqueue_script_helper('csf-codemirror', esc_url($this->cdn_url . $this->version . '/codemirror.min.js')).
