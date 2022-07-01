@@ -349,16 +349,18 @@ if (!class_exists('CSF_Options')) {
 
                             // Sanitize "post" request of field.
                             if (!isset($field['sanitize'])) {
+                                $data[$field_id] = $field_value;
 
-                                if (is_array($field_value)) {
-
-                                    $data[$field_id] = wp_kses_post_deep($field_value);
-
-                                } else {
-
-                                    $data[$field_id] = wp_kses_post($field_value);
-
-                                }
+                                // 暂时取消过滤
+//                                if (is_array($field_value)) {
+//
+//                                    $data[$field_id] = wp_kses_post_deep($field_value);
+//
+//                                } else {
+//
+//                                    $data[$field_id] = wp_kses_post($field_value);
+//
+//                                }
 
                             } else if (isset($field['sanitize']) && is_callable($field['sanitize'])) {
 
