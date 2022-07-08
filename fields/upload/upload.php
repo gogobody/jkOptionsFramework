@@ -18,7 +18,7 @@ if ( ! class_exists( 'CSF_Field_upload' ) ) {
 
       $args = wp_parse_args( $this->field, array(
         'library'        => array(),
-        'preview'        => false,
+        'preview'        => true,
         'preview_width'  => '',
         'preview_height' => '',
         'button_title'   => esc_html__( 'Upload', 'csf' ),
