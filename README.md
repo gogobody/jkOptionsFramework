@@ -98,10 +98,14 @@ function themeConfig($form)
 if (!class_exists('jkOptions')){
     require_once \Utils\Helper::options()->pluginDir('jkOptionsFramework').'/jkOptions.php';
 }
-$options = jkOptions::getInstance()::get_option( 'my_framework' ); // 唯一的识别号
+$ins = jkOptions::getInstance();
+$options = $ins::get_option( 'my_framework' ); // 唯一的识别号
 
 echo $options['opt-text']; // 选项的id
 echo $options['opt-textarea']; // 选项的id
+
+// 或者使用避免多级访问产生 warning 的方法
+echo $ins::getValue($options, '一级id.二级id') 
 ```
 
 ## Documentation
