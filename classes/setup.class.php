@@ -106,24 +106,26 @@ if (!class_exists('CSF_Setup')) {
                 }
             } elseif ($isPlugin){
                 $pluginName = get_plugin_theme_name();
-                /** 获取插件入口 */
-                [$pluginFileName, $className] = Plugin::portal(
-                    $pluginName,
-                    __TYPECHO_ROOT_DIR__ . '/' . __TYPECHO_PLUGIN_DIR__
-                );
-                // 引入插件文件，主要是为了在 header 获取相应配置，否则 $fields 获取不到
-                require_once $pluginFileName;
+                if(!empty($pluginName)){
+                    /** 获取插件入口 */
+                    [$pluginFileName, $className] = Plugin::portal(
+                        $pluginName,
+                        __TYPECHO_ROOT_DIR__ . '/' . __TYPECHO_PLUGIN_DIR__
+                    );
+                    // 引入插件文件，主要是为了在 header 获取相应配置，否则 $fields 获取不到
+                    require_once $pluginFileName;
 
-//                /** 判断实例化是否成功 */
-//                if (
-//                    class_exists($className) || method_exists($className, 'activate')
-//                ) {
-//                    call_user_func([$className, 'activate']);
-//                }
+                    //                /** 判断实例化是否成功 */
+                    //                if (
+                    //                    class_exists($className) || method_exists($className, 'activate')
+                    //                ) {
+                    //                    call_user_func([$className, 'activate']);
+                    //                }
 
-                //
-                if (empty(CSF::$fields[$pluginName])) {
-                    $usingJKF = false;
+                    //
+                    if (empty(CSF::$fields[$pluginName])) {
+                        $usingJKF = false;
+                    }
                 }
             }
             $loads_statics = ($isPlugin || $isTheme) && $usingJKF;
