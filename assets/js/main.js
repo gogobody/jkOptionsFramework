@@ -157,6 +157,56 @@ window.wp = window.wp || {};
         }
     };
 
+    /*
+     *  onecircle ajax
+     */
+    function oc_empty(value = '') {
+        if (value === '' || value === null || value === undefined || value == 0) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    function setNotice_(msg) {
+        $("#authorization_form .ajax-notice").html('<p style="color:#fd4c73;">'+msg+'</p>')
+    }
+    $("#authorization_submit").on('click',function (e) {
+        e.preventDefault();
+        let url = $("#authorization_form").data('ajaxurl')
+        let action = $("input[name='action']").val()
+        if (action === "get_ocpro_authorization"){
+            let key_code = $("input[name='key_code']").val()
+            if (oc_empty(key_code)){
+                setNotice_('缺少参数')
+                return false
+            }
+            $.post(url,{
+                do:action,
+                key:key_code
+            },function (res) {
+                if (res.code !== 1){
+                    setNotice_(res.msg)
+                } else {
+                    window.location.reload()
+                }
+            })
+        } else if (action === "get_ocpro_delete_authorization"){
+            const ret = confirm('是否删除授权？');
+            if (ret){
+                $.post(url,{
+                    do:action,
+                },function (res) {
+                    if (res.code !== 1){
+                        setNotice_(res.msg)
+                    } else {
+                        window.location.reload()
+                    }
+                })
+            }
+
+        }
+    })
 }(jQuery));
 
 
@@ -312,7 +362,7 @@ window.wp = window.wp || {};
                         winWidth  = $window.innerWidth();
 
                     if ( stickyTop <= offset && winWidth > 782 ) {
-                        $inner.css({width: $this.outerWidth()-padding});
+                        $inner.css({width: $this.outerWidth()});
                         $this.css({height: $this.outerHeight()}).addClass( 'csf-sticky' );
                     } else {
                         $inner.removeAttr('style');
@@ -999,13 +1049,13 @@ window.wp = window.wp || {};
                             }, 1e3)
                         })
                     }).fail(function (e) {
-                        alert(e.error)
+                        alert(e.notice)
                     })) : T.vars.form_modified = !1
                 }
                 o = !0
             })
         })
-    }, I.fn.csf_options = function () {
+    }, I.fn.OCF_Options = function () {
         return this.each(function () {
             var e = I(this), t = e.find(".csf-content"), n = e.find(".csf-form-success"),
                 i = e.find(".csf-form-warning"), a = e.find(".csf-header .csf-save");
@@ -1310,7 +1360,7 @@ window.wp = window.wp || {};
             e.data("inited") || (e.children(".csf-field-accordion").csf_field_accordion(), e.children(".csf-field-backup").csf_field_backup(), e.children(".csf-field-background").csf_field_background(), e.children(".csf-field-code_editor").csf_field_code_editor(), e.children(".csf-field-date").csf_field_date(), e.children(".csf-field-datetime").csf_field_datetime(), e.children(".csf-field-fieldset").csf_field_fieldset(), e.children(".csf-field-gallery").csf_field_gallery(), e.children(".csf-field-group").csf_field_group(), e.children(".csf-field-icon").csf_field_icon(), e.children(".csf-field-link").csf_field_link(), e.children(".csf-field-media").csf_field_media(), e.children(".csf-field-map").csf_field_map(), e.children(".csf-field-repeater").csf_field_repeater(), e.children(".csf-field-slider").csf_field_slider(), e.children(".csf-field-sortable").csf_field_sortable(), e.children(".csf-field-sorter").csf_field_sorter(), e.children(".csf-field-spinner").csf_field_spinner(), e.children(".csf-field-switcher").csf_field_switcher(), e.children(".csf-field-tabbed").csf_field_tabbed(), e.children(".csf-field-typography").csf_field_typography(), e.children(".csf-field-upload").csf_field_media(), e.children(".csf-field-wp_editor").csf_field_wp_editor(), e.children(".csf-field-border").find(".csf-color").csf_color(), e.children(".csf-field-background").find(".csf-color").csf_color(), e.children(".csf-field-color").find(".csf-color").csf_color(), e.children(".csf-field-color_group").find(".csf-color").csf_color(), e.children(".csf-field-link_color").find(".csf-color").csf_color(), e.children(".csf-field-typography").find(".csf-color").csf_color(), e.children(".csf-field-select").find(".csf-chosen").csf_chosen(), e.children(".csf-field-checkbox").find(".csf-checkbox").csf_checkbox(), e.children(".csf-field-button_set").find(".csf-siblings").csf_siblings(), e.children(".csf-field-image_select").find(".csf-siblings").csf_siblings(), e.children(".csf-field-palette").find(".csf-siblings").csf_siblings(), e.children(".csf-field").find(".csf-help").csf_help(), t.dependency && e.csf_dependency(), e.data("inited", !0), I(b).trigger("csf-reload-script", e))
         })
     }, I(b).ready(function () {
-        I(".csf-save").csf_save(), I(".csf-options").csf_options(), I(".csf-sticky-header").csf_sticky(), I(".csf-nav-options").csf_nav_options(), I(".csf-nav-metabox").csf_nav_metabox(), I(".csf-taxonomy").csf_taxonomy(), I(".csf-page-templates").csf_page_templates(), I(".csf-post-formats").csf_post_formats(), I(".csf-shortcode").csf_shortcode(), I(".csf-search").csf_search(), I(".csf-confirm").csf_confirm(), I(".csf-expand-all").csf_expand_all(), I(".csf-onload").csf_reload_script(), I("#widgets-editor").csf_widgets(), I("#widgets-right").csf_widgets(), I("#menu-to-edit").csf_nav_menu()
+        I(".csf-save").csf_save(), I(".csf-options").OCF_Options(), I(".csf-sticky-header").csf_sticky(), I(".csf-nav-options").csf_nav_options(), I(".csf-nav-metabox").csf_nav_metabox(), I(".csf-taxonomy").csf_taxonomy(), I(".csf-page-templates").csf_page_templates(), I(".csf-post-formats").csf_post_formats(), I(".csf-shortcode").csf_shortcode(), I(".csf-search").csf_search(), I(".csf-confirm").csf_confirm(), I(".csf-expand-all").csf_expand_all(), I(".csf-onload").csf_reload_script(), I("#widgets-editor").csf_widgets(), I("#widgets-right").csf_widgets(), I("#menu-to-edit").csf_nav_menu()
     })
 }(jQuery, window, document);
 

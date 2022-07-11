@@ -160,15 +160,17 @@ if (!class_exists('CSF_Setup')) {
             // 仅在插件页或者主题页添加 class
             if ($loads_statics) { // if is plugin
                 if (self::$render_static_script) return $old;
-                $script = '<script src="' . self::include_plugin_url('assets/js/lodash.min.js') . '"></script>' .
+                $script =
+                    '<script src="' . self::include_plugin_url('assets/js/lodash.min.js') . '"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/plugins.min.js') . '"></script>' .
-                    '<script src="' . self::include_plugin_url('assets/js/main.min.js') . '"></script>' .
+                    '<script src="' . self::include_plugin_url('assets/js/main.min.js') . '?version=1.1.1"></script>' .
+                    '<script src="' . self::include_plugin_url('assets/js/jquery/ui/core.js') . '"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/iris.min.js') . '"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/color-picker.min.js') . '"></script>' .
-                    '<script src="' . self::include_plugin_url('assets/js/jquery/ui/core.min.js') . '"></script>' .
-                    '<script src="' . self::include_plugin_url('assets/js/jquery/ui/draggable.min.js') . '"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/jquery/ui/mouse.min.js') . '"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/jquery/ui/menu.min.js') . '"></script>' .
+                    '<script src="' . self::include_plugin_url('assets/js/jquery/ui/draggable.min.js') . '"></script>' .
+                    '<script src="' . self::include_plugin_url('assets/js/jquery/jquery.ui.touch-punch.min.js') . '"></script>' .
 
                     self::add_admin_enqueue_scripts().
 
