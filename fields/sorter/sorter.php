@@ -23,7 +23,22 @@ if ( ! class_exists( 'CSF_Field_sorter' ) ) {
       ) );
 
       echo $this->field_before();
-
+        // 检查是否有更新
+        $default_keys = array_merge([], $this->field['default']['enabled']??[], $this->field['default']['disabled']??[]);
+        $current_kvs = array_merge([], $this->value['enabled']??[], $this->value['disabled']??[]);
+        if ( !empty($this->value )){
+            $unexit_kv = [];
+            if (!empty($current_kvs)){
+                foreach ($default_keys as $k => $v){
+                    if (!array_key_exists($k, $current_kvs)){
+                        $unexit_kv[$k] = $v;
+                    }
+                }
+            }
+            if (!empty($unexit_kv)){
+                $this->value['disabled'] = array_merge($this->value['disabled']??[], $unexit_kv);
+            }
+        }
       $this->value      = ( ! empty( $this->value ) ) ? $this->value : $this->field['default'];
       $enabled_options  = ( ! empty( $this->value['enabled'] ) ) ? $this->value['enabled'] : array();
       $disabled_options = ( ! empty( $this->value['disabled'] ) ) ? $this->value['disabled'] : array();
