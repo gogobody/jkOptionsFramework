@@ -40,7 +40,7 @@ if (!class_exists('jkOptions')) {
             if (is_array($key)) {
                 $lastKey = array_pop($key);
                 foreach ($key as $keyPart) {
-                    $array = getValue($array, $keyPart);
+                    $array = self::getValue($array, $keyPart);
                 }
                 $key = $lastKey;
             }
@@ -48,7 +48,7 @@ if (!class_exists('jkOptions')) {
                 return $array[$key];
             }
             if (($pos = strrpos($key, '.')) !== false) {
-                $array = getValue($array, substr($key, 0, $pos), $default);
+                $array = self::getValue($array, substr($key, 0, $pos), $default);
                 $key = substr($key, $pos + 1);
             }
             if (is_object($array)) {
