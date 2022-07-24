@@ -162,7 +162,7 @@ if (!class_exists('CSF_Setup')) {
                 if (self::$render_static_script) return $old;
                 $script =
                     '<script src="' . self::include_plugin_url('assets/js/lodash.min.js') . '"></script>' .
-                    '<script src="' . self::include_plugin_url('assets/js/plugins.js') . '"></script>' .
+                    '<script src="' . self::include_plugin_url('assets/js/plugins.min.js') . '"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/main.min.js') . '?version=1.1.1"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/jquery/ui/core.js') . '"></script>' .
                     '<script src="' . self::include_plugin_url('assets/js/iris.min.js') . '"></script>' .
