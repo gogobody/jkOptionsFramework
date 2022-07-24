@@ -393,21 +393,59 @@ window.wp = window.wp || {};
 
             onSticky();
         })
-    }, I.fn.csf_dependency = function () {
-        return this.each(function () {
-            var e = I(this), t = e.children("[data-controller]");
-            if (t.length) {
-                var n = I.csf_deps.createRuleset(), i = I.csf_deps.createRuleset(), f = [], l = [];
-                t.each(function () {
-                    var a = I(this), e = a.data("controller").split("|"), s = a.data("condition").split("|"),
-                        c = a.data("value").toString().split("|"), r = !!a.data("depend-global"), o = r ? i : n;
-                    I.each(e, function (e, t) {
-                        var n = c[e] || "", i = s[e] || s[0];
-                        (o = o.createRule('[data-depend-id="' + t + '"]', i, n)).include(a), r ? l.push(t) : f.push(t)
-                    })
-                }), f.length && I.csf_deps.enable(e, n, f), l.length && I.csf_deps.enable(T.vars.$body, i, l)
+    },
+    $.fn.csf_dependency = function() {
+        return this.each( function() {
+
+            var $this   = $(this),
+                $fields = $this.children('[data-controller]');
+
+            if( $fields.length ) {
+
+                var normal_ruleset = $.csf_deps.createRuleset(),
+                    global_ruleset = $.csf_deps.createRuleset(),
+                    normal_depends = [],
+                    global_depends = [];
+
+                $fields.each( function() {
+
+                    var $field      = $(this),
+                        controllers = $field.data('controller').split('|'),
+                        conditions  = $field.data('condition').split('|'),
+                        values      = $field.data('value').toString().split('|'),
+                        is_global   = $field.data('depend-global') ? true : false,
+                        ruleset     = ( is_global ) ? global_ruleset : normal_ruleset;
+
+                    $.each(controllers, function( index, depend_id ) {
+
+                        var value     = values[index] || '',
+                            condition = conditions[index] || conditions[0];
+
+                        ruleset = ruleset.createRule('[data-depend-id="'+ depend_id +'"]', condition, value);
+
+                        ruleset.include($field);
+
+                        if ( is_global ) {
+                            global_depends.push(depend_id);
+                        } else {
+                            normal_depends.push(depend_id);
+                        }
+
+                    });
+
+                });
+
+                if ( normal_depends.length ) {
+                    $.csf_deps.enable($this, normal_ruleset, normal_depends);
+                }
+
+                if ( global_depends.length ) {
+                    $.csf_deps.enable(T.vars.$body, global_ruleset, global_depends);
+                }
+
             }
-        })
+
+        });
     }, I.fn.csf_field_accordion = function () {
         return this.each(function () {
             I(this).find(".csf-accordion-title").on("click", function () {
