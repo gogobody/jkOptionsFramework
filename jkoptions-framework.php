@@ -43,10 +43,16 @@ if (class_exists('\Typecho\I18n')){
 
 // 仅在插件页或者主题页添加 class
 // Add admin body class
-if (strpos($_SERVER['REQUEST_URI'], 'plugin.php')!==false or strpos($_SERVER['REQUEST_URI'], 'theme.php')){
+if (strpos($_SERVER['REQUEST_URI'], 'plugin.php')!==false or strpos($_SERVER['REQUEST_URI'], 'theme.php')!=false
+    or strpos($_SERVER['REQUEST_URI'], 'options-plugin.php')!=false){
     // set body class
     global $bodyClass;
-    $bodyClass = $bodyClass.'wp-core-ui csf-fa5-shims';
+    if (strpos($bodyClass, 'wp-core-ui csf-fa5-shims')===false){
+        $bodyClass = $bodyClass.'wp-core-ui csf-fa5-shims';
+        if (wp_is_mobile()){
+            $bodyClass = $bodyClass.'mobile';
+        }
+    }
 }
 
 require_once plugin_dir_path(__FILE__) . 'functions/defines.php';
