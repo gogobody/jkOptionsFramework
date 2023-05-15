@@ -41,6 +41,8 @@ if (class_exists('\Typecho\I18n')){
     I18n::setLang(plugin_dir_path(__FILE__) . 'languages/zh_CN.mo');
 }
 
+require_once plugin_dir_path(__FILE__) . 'functions/defines.php';
+
 // 仅在插件页或者主题页添加 class
 // Add admin body class
 if (strpos($_SERVER['REQUEST_URI'], 'plugin.php')!==false or strpos($_SERVER['REQUEST_URI'], 'theme.php')!=false
@@ -55,7 +57,7 @@ if (strpos($_SERVER['REQUEST_URI'], 'plugin.php')!==false or strpos($_SERVER['RE
     }
 }
 
-require_once plugin_dir_path(__FILE__) . 'functions/defines.php';
+
 require_once plugin_dir_path(__FILE__) . 'functions/plugin.php';
 require_once plugin_dir_path(__FILE__) . 'functions/media-template.php';
 
