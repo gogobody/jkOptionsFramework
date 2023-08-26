@@ -41,19 +41,7 @@ if (class_exists('\Typecho\I18n')){
     I18n::setLang(plugin_dir_path(__FILE__) . 'languages/zh_CN.mo');
 }
 
-// 仅在插件页或者主题页添加 class
-// Add admin body class
-if (strpos($_SERVER['REQUEST_URI'], 'plugin.php')!==false or strpos($_SERVER['REQUEST_URI'], 'theme.php')!=false
-    or strpos($_SERVER['REQUEST_URI'], 'options-plugin.php')!=false){
-    // set body class
-    global $bodyClass;
-    if (strpos($bodyClass, 'wp-core-ui csf-fa5-shims')===false){
-        $bodyClass = $bodyClass.'wp-core-ui csf-fa5-shims';
-        if (wp_is_mobile()){
-            $bodyClass = $bodyClass.'mobile';
-        }
-    }
-}
+
 
 require_once plugin_dir_path(__FILE__) . 'functions/defines.php';
 require_once plugin_dir_path(__FILE__) . 'functions/plugin.php';
@@ -64,6 +52,19 @@ require_once plugin_dir_path(__FILE__) . 'functions/class.wp_term_query.php';
 require_once plugin_dir_path(__FILE__) . 'functions/class.wp_user_query.php';
 require_once plugin_dir_path(__FILE__) . 'functions/class.wp_meta_query.php';
 
+// 仅在插件页或者主题页添加 class
+// Add admin body class
+if (strpos($_SERVER['REQUEST_URI'], 'plugin.php')!==false or strpos($_SERVER['REQUEST_URI'], 'theme.php')!=false
+    or strpos($_SERVER['REQUEST_URI'], 'options-plugin.php')!=false){
+    // set body class
+    global $bodyClass;
+    if (strpos($bodyClass, 'wp-core-ui csf-fa5-shims')===false){
+        $bodyClass = $bodyClass.'wp-core-ui csf-fa5-shims';
+        if (ty_is_mobile()){
+            $bodyClass = $bodyClass.'mobile';
+        }
+    }
+}
 
 // init cache
 require_once plugin_dir_path(__FILE__) . 'functions/class.wp_object_cache.php';

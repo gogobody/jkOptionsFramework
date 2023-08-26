@@ -2549,9 +2549,9 @@ if (!function_exists('format_to_edit')) {
         return $content;
     }
 }
-if (!function_exists('wp_is_mobile')) {
+if (!function_exists('ty_is_mobile')) {
 
-    function wp_is_mobile()
+    function ty_is_mobile()
     {
         if (empty($_SERVER['HTTP_USER_AGENT'])) {
             $is_mobile = false;
@@ -2574,7 +2574,7 @@ if (!function_exists('wp_is_mobile')) {
          * @since 4.9.0
          *
          */
-        return apply_filters('wp_is_mobile', $is_mobile);
+        return apply_filters('ty_is_mobile', $is_mobile);
     }
 }
 if (!function_exists('option_value')) {
@@ -2601,10 +2601,10 @@ if (!function_exists('user_can_richedit')) {
 
             if ('true' === option_value('useRichEditor') || !$user->hasLogin()) { // Default to 'true' for logged out users.
                 if ($is_safari) {
-                    $wp_rich_edit = !wp_is_mobile() || (preg_match('!AppleWebKit/(\d+)!', $_SERVER['HTTP_USER_AGENT'], $match) && (int)$match[1] >= 534);
+                    $wp_rich_edit = !ty_is_mobile() || (preg_match('!AppleWebKit/(\d+)!', $_SERVER['HTTP_USER_AGENT'], $match) && (int)$match[1] >= 534);
                 } elseif ($is_IE) {
                     $wp_rich_edit = (strpos($_SERVER['HTTP_USER_AGENT'], 'Trident/7.0;') !== false);
-                } elseif ($is_gecko || $is_chrome || $is_edge || ($is_opera && !wp_is_mobile())) {
+                } elseif ($is_gecko || $is_chrome || $is_edge || ($is_opera && !ty_is_mobile())) {
                     $wp_rich_edit = true;
                 }
             }
@@ -3722,7 +3722,7 @@ if (!function_exists('update_term_cache')) {
 if (!function_exists('_device_can_upload')) {
     function _device_can_upload()
     {
-        if (!wp_is_mobile()) {
+        if (!ty_is_mobile()) {
             return true;
         }
 
